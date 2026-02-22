@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ขอโทษนะบี๋ 💕</title>
+    <meta name="description" content="คำขอโทษจากใจ ที่อยากให้บี๋รู้ว่าสำคัญมากแค่ไหน">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600&family=Prompt:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            font-family: 'Prompt', 'Mitr', sans-serif;
+            overflow: hidden;
+            background: #0a0a1a;
+            color: #fff;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart-float {
+            position: absolute;
+            bottom: -100px;
+            animation: floatUp linear infinite;
+            opacity: 0;
+            font-size: 20px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            90% {
+                opacity: 0.1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ===== Sparkle Particles ===== */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: sparkleAnim 3s ease-in-out infinite;
+        }
+
+        @keyframes sparkleAnim {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+
+        /* ===== Cover Page ===== */
+        .cover-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a0a2e 0%, #16213e 30%, #0f3460 60%, #1a0a2e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: opacity 1s ease, transform 1s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cover-section.hide {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+
+        .cover-heart {
+            font-size: clamp(50px, 12vw, 80px);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 30px rgba(255, 100, 150, 0.6));
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.15);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.1);
+            }
+        }
+
+        .cover-title {
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(1.4rem, 5vw, 2.5rem);
+            font-weight: 300;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .cover-subtitle {
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            color: rgba(255, 200, 220, 0.6);
+            font-weight: 200;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .cover-glow {
+            position: absolute;
+            width: clamp(200px, 50vw, 350px);
+            height: clamp(200px, 50vw, 350px);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 100, 150, 0.15) 0%, transparent 70%);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+        }
+
+        /* ===== Pages Container ===== */
+        .pages-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .pages-container.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ===== Individual Page ===== */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            padding-bottom: 100px;
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            pointer-events: none;
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: all;
+        }
+
+        .page.exit-left {
+            opacity: 0;
+            transform: scale(0.9) translateX(-50px);
+        }
+
+        .page.exit-right {
+            opacity: 0;
+            transform: scale(0.9) translateX(50px);
+        }
+
+        /* Page Backgrounds */
+        .page-1 {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #16213e 100%);
+        }
+
+        .page-2 {
+            background: linear-gradient(180deg, #16213e 0%, #0f3460 50%, #1a0a2e 100%);
+        }
+
+        .page-3 {
+            background: linear-gradient(180deg, #1a0a2e 0%, #2d1b69 50%, #1a0a2e 100%);
+        }
+
+        .page-4 {
+            background: linear-gradient(180deg, #1a0a2e 0%, #16213e 50%, #0a0a1a 100%);
+        }
+
+        .page-5 {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #2d1b69 100%);
+        }
+
+        /* ===== Page 1: Sorry ===== */
+        .sorry-emoji {
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px rgba(255, 150, 180, 0.4));
+            animation: floatGentle 3s ease-in-out infinite;
+        }
+
+        .sorry-text {
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(2rem, 7vw, 4rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff6b9d, #ff9a9e, #fecfef, #ffecd2);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ===== Page 2: Message ===== */
+        .message-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 150, 180, 0.15);
+            border-radius: clamp(15px, 4vw, 30px);
+            padding: clamp(25px, 5vw, 50px) clamp(20px, 5vw, 40px);
+            max-width: 550px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 150, 180, 0.05), transparent, rgba(255, 200, 220, 0.05), transparent);
+            animation: rotateGlow 8s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .message-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .message-line {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            line-height: 2;
+            color: rgba(255, 220, 230, 0.9);
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .message-line.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-line.highlight {
+            color: #ffb6c1;
+            font-weight: 500;
+            font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+        }
+
+        .message-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 150, 180, 0.5), transparent);
+            margin: clamp(12px, 2.5vw, 25px) auto;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .message-divider.show {
+            opacity: 1;
+        }
+
+        /* ===== Page 3: Important ===== */
+        .important-box {
+            position: relative;
+            padding: clamp(30px, 5vw, 60px) clamp(20px, 4vw, 40px);
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .important-label {
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-transform: uppercase;
+            letter-spacing: clamp(3px, 1vw, 6px);
+            color: rgba(255, 180, 200, 0.5);
+            margin-bottom: clamp(15px, 3vw, 30px);
+            font-weight: 300;
+        }
+
+        .important-text {
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            font-weight: 400;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .important-heart {
+            margin-top: clamp(15px, 3vw, 30px);
+            font-size: clamp(2rem, 5vw, 3rem);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px rgba(255, 100, 150, 0.5));
+        }
+
+        .glow-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 150, 180, 0.1);
+            animation: ringPulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .glow-ring-1 {
+            width: clamp(200px, 50vw, 350px);
+            height: clamp(200px, 50vw, 350px);
+        }
+
+        .glow-ring-2 {
+            width: clamp(280px, 65vw, 450px);
+            height: clamp(280px, 65vw, 450px);
+            animation-delay: 0.5s;
+            border-color: rgba(255, 150, 180, 0.05);
+        }
+
+        .glow-ring-3 {
+            width: clamp(360px, 80vw, 550px);
+            height: clamp(360px, 80vw, 550px);
+            animation-delay: 1s;
+            border-color: rgba(255, 150, 180, 0.03);
+        }
+
+        @keyframes ringPulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* ===== Page 4: Promise ===== */
+        .promise-container {
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .promise-icon {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            margin-bottom: clamp(15px, 3vw, 30px);
+            animation: floatGentle 3s ease-in-out infinite;
+        }
+
+        @keyframes floatGentle {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .promise-title {
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            font-weight: 400;
+            color: #ffb6c1;
+            margin-bottom: clamp(12px, 3vw, 25px);
+        }
+
+        .promise-text {
+            font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+            line-height: 2;
+            color: rgba(255, 220, 230, 0.7);
+            font-weight: 200;
+        }
+
+        /* ===== Page 5: Forgive ===== */
+        .forgive-container {
+            text-align: center;
+        }
+
+        .forgive-question {
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(1.3rem, 4.5vw, 2rem);
+            font-weight: 300;
+            color: rgba(255, 200, 220, 0.8);
+            margin-bottom: clamp(25px, 5vw, 40px);
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            gap: clamp(10px, 3vw, 20px);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-forgive {
+            display: inline-block;
+            padding: clamp(14px, 3vw, 18px) clamp(35px, 8vw, 60px);
+            background: linear-gradient(135deg, #ff6b9d, #ff9a9e, #fecfef);
+            background-size: 200% 200%;
+            color: #1a0a2e;
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 500;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(255, 100, 150, 0.3);
+            animation: gradientShift 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-forgive::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        .btn-forgive:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(255, 100, 150, 0.5);
+        }
+
+        .btn-forgive:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* ===== Not Forgive Button (Runaway) ===== */
+        .btn-not-forgive {
+            padding: clamp(14px, 3vw, 18px) clamp(25px, 6vw, 40px);
+            background: transparent;
+            color: rgba(255, 180, 200, 0.6);
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 300;
+            border: 1px solid rgba(255, 150, 180, 0.3);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-not-forgive:hover {
+            border-color: rgba(255, 150, 180, 0.5);
+            color: rgba(255, 180, 200, 0.9);
+        }
+
+        .btn-not-forgive.running {
+            position: fixed;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 999;
+        }
+
+        .btn-not-forgive.shake {
+            animation: shakeBtn 0.5s ease;
+        }
+
+        @keyframes shakeBtn {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(-10deg);
+            }
+
+            40% {
+                transform: rotate(10deg);
+            }
+
+            60% {
+                transform: rotate(-8deg);
+            }
+
+            80% {
+                transform: rotate(8deg);
+            }
+        }
+
+        .runaway-message {
+            position: fixed;
+            font-family: 'Prompt', sans-serif;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            color: rgba(255, 180, 200, 0.7);
+            pointer-events: none;
+            z-index: 998;
+            opacity: 0;
+            animation: floatMessage 2s ease-out forwards;
+            white-space: nowrap;
+        }
+
+        @keyframes floatMessage {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.5);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1);
+            }
+
+            80% {
+                opacity: 0.6;
+                transform: translateY(-40px) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-70px) scale(0.8);
+            }
+        }
+
+        /* ===== Navigation Buttons ===== */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(15px, 4vw, 25px);
+            padding: clamp(15px, 3vw, 25px) 20px;
+            z-index: 50;
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 26, 0.9) 40%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .nav-bar.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .nav-btn {
+            padding: clamp(10px, 2.5vw, 14px) clamp(24px, 5vw, 40px);
+            border-radius: 50px;
+            font-family: 'Prompt', sans-serif;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .nav-btn-back {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 150, 180, 0.2) !important;
+            color: rgba(255, 180, 200, 0.6);
+        }
+
+        .nav-btn-back:hover {
+            background: rgba(255, 150, 180, 0.1);
+            color: rgba(255, 180, 200, 0.9);
+        }
+
+        .nav-btn-back:active {
+            transform: scale(0.95);
+        }
+
+        .nav-btn-next {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.3), rgba(255, 154, 158, 0.3));
+            color: #ffb6c1;
+            border: 1px solid rgba(255, 150, 180, 0.3) !important;
+        }
+
+        .nav-btn-next:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.5), rgba(255, 154, 158, 0.5));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 100, 150, 0.2);
+        }
+
+        .nav-btn-next:active {
+            transform: scale(0.95);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* Page dots */
+        .page-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .page-dot {
+            width: clamp(6px, 1.5vw, 8px);
+            height: clamp(6px, 1.5vw, 8px);
+            border-radius: 50%;
+            background: rgba(255, 150, 180, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .page-dot.active {
+            background: rgba(255, 150, 180, 0.7);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(255, 150, 180, 0.4);
+        }
+
+        /* ===== Celebration Overlay ===== */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+
+        .celebration.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .celebration-hearts {
+            font-size: clamp(3rem, 10vw, 5rem);
+            margin-bottom: 25px;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        .celebration-text {
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-weight: 500;
+            background: linear-gradient(135deg, #ff6b9d, #ff9a9e, #fecfef, #ffecd2);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .celebration-sub {
+            font-size: clamp(0.95rem, 3vw, 1.2rem);
+            color: rgba(255, 200, 220, 0.7);
+            font-weight: 200;
+            text-align: center;
+        }
+
+        .btn-go-back {
+            margin-top: 30px;
+            padding: clamp(12px, 2.5vw, 16px) clamp(30px, 6vw, 50px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 150, 180, 0.25);
+            border-radius: 50px;
+            color: rgba(255, 180, 200, 0.6);
+            font-family: 'Prompt', sans-serif;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-go-back:hover {
+            background: rgba(255, 150, 180, 0.12);
+            color: rgba(255, 180, 200, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .btn-go-back:active {
+            transform: scale(0.95);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="cover-section" id="cover" onclick="openLetter()">
+        <div class="cover-glow"></div>
+        <div class="cover-heart">💌</div>
+        <h1 class="cover-title">มีอะไรอยากจะบอก...</h1>
+        <p class="cover-subtitle">แตะเพื่อเปิดอ่าน 💕</p>
+    </div>
+
+
+    <div class="hearts-bg" id="heartsBg"></div>
+
+
+    <div class="pages-container" id="pagesContainer">
+
+
+        <div class="page page-1" id="page-0">
+            <div class="sorry-emoji">🙏</div>
+            <h2 class="sorry-text">ขอโทษนะ...บี๋</h2>
+        </div>
+
+
+        <div class="page page-2" id="page-1">
+            <div class="message-card">
+                <div class="message-card-content">
+                    <p class="message-line" data-msg-delay="200">
+                        บางครั้งเค้าก็ทำอะไร
+                    </p>
+                    <p class="message-line" data-msg-delay="400">
+                        โดยไม่คิดให้รอบคอบ
+                    </p>
+                    <div class="message-divider" data-msg-delay="600"></div>
+                    <p class="message-line highlight" data-msg-delay="800">
+                        และมันทำให้บี๋รู้สึกไม่ดี
+                    </p>
+                    <div class="message-divider" data-msg-delay="1000"></div>
+                    <p class="message-line" data-msg-delay="1200">
+                        แค่นั้นก็พอแล้ว
+                    </p>
+                    <p class="message-line" data-msg-delay="1400">
+                        ที่เค้าต้องขอโทษ 🥺
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Important -->
+        <div class="page page-3" id="page-2">
+            <div class="glow-ring glow-ring-1"></div>
+            <div class="glow-ring glow-ring-2"></div>
+            <div class="glow-ring glow-ring-3"></div>
+            <div class="important-box">
+                <p class="important-label">อยากให้รู้ว่า</p>
+                <h2 class="important-text">
+                    บี๋สำคัญกับเค้า<br>จริง ๆ นะ 💗
+                </h2>
+                <div class="important-heart">💕</div>
+            </div>
+        </div>
+
+        <!-- Page 4: Promise -->
+        <div class="page page-4" id="page-3">
+            <div class="promise-container">
+                <div class="promise-icon">🌸</div>
+                <h2 class="promise-title">เค้าสัญญา</h2>
+                <p class="promise-text">
+                    จะคิดให้รอบคอบมากขึ้น<br>
+                    จะไม่ทำให้บี๋เสียใจอีก<br>
+                    จะดูแลความรู้สึกของบี๋ให้ดีที่สุด<br><br>
+                    เพราะบี๋คือคนที่เค้าห่วงที่สุด 🤍
+                </p>
+            </div>
+        </div>
+
+        <!-- Page 5: Forgive -->
+        <div class="page page-5" id="page-4">
+            <div class="forgive-container">
+                <p class="forgive-question">ให้อภัยเค้าได้ไหม? 🥺💕</p>
+                <div class="buttons-wrapper">
+                    <button class="btn-forgive" id="btnForgive" onclick="celebrate()">
+                        ให้อภัย 💖
+                    </button>
+                    <button class="btn-not-forgive" id="btnNotForgive" onclick="runAway()">
+                        ไม่ให้อภัย 💔
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Navigation Bar ===== -->
+    <div class="nav-bar" id="navBar">
+        <button class="nav-btn nav-btn-back" id="btnBack" onclick="prevPage()">← ย้อนกลับ</button>
+        <div class="page-dots" id="pageDots">
+            <div class="page-dot active" data-dot="0"></div>
+            <div class="page-dot" data-dot="1"></div>
+            <div class="page-dot" data-dot="2"></div>
+            <div class="page-dot" data-dot="3"></div>
+            <div class="page-dot" data-dot="4"></div>
+        </div>
+        <button class="nav-btn nav-btn-next" id="btnNext" onclick="nextPage()">ถัดไป →</button>
+    </div>
+
+    <!-- ===== Celebration ===== -->
+    <div class="celebration" id="celebration">
+        <div class="celebration-hearts">💕💖💕</div>
+        <h2 class="celebration-text">ขอบคุณนะบี๋ 🥹</h2>
+        <p class="celebration-sub">เค้าจะเป็นคนที่ดีขึ้นเพื่อบี๋ 💕</p>
+        <button class="btn-go-back" onclick="goBackToRead()">← ย้อนกลับไปอ่านอีกครั้ง 💌</button>
+    </div>
+
+    <script>
+        // ===== State =====
+        let currentPage = 0;
+        const totalPages = 5;
+        let isOpened = false;
+        let isAnimating = false;
+
+        // ===== Floating Hearts =====
+        function createHearts() {
+            const container = document.getElementById('heartsBg');
+            const heartEmojis = ['💕', '💗', '💖', '💓', '🩷', '✨', '🌸', '💝'];
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-float');
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (8 + Math.random() * 12) + 's';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (12 + Math.random() * 18) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // ===== Sparkles =====
+        function createSparkles() {
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (2 + Math.random() * 3) + 's';
+                document.body.appendChild(sparkle);
+            }
+        }
+
+        // ===== Open Letter =====
+        function openLetter() {
+            if (isOpened) return;
+            isOpened = true;
+
+            document.getElementById('cover').classList.add('hide');
+            document.getElementById('pagesContainer').classList.add('show');
+
+            setTimeout(() => {
+                document.getElementById('navBar').classList.add('show');
+                updateNavButtons();
+                showPage(0);
+            }, 800);
+
+            createHearts();
+            createSparkles();
+        }
+
+        // ===== Page Navigation =====
+        function showPage(index) {
+            // Remove active from all pages
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active', 'exit-left', 'exit-right');
+            });
+
+            // Show target page
+            const targetPage = document.getElementById('page-' + index);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update dots
+            document.querySelectorAll('.page-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            // Trigger message card animations on page 2
+            if (index === 1) {
+                animateMessageLines();
+            }
+
+            updateNavButtons();
+        }
+
+        function nextPage() {
+            if (isAnimating || currentPage >= totalPages - 1) return;
+            isAnimating = true;
+
+            const currentEl = document.getElementById('page-' + currentPage);
+            currentEl.classList.add('exit-left');
+            currentEl.classList.remove('active');
+
+            currentPage++;
+
+            setTimeout(() => {
+                showPage(currentPage);
+                isAnimating = false;
+            }, 300);
+        }
+
+        function prevPage() {
+            if (isAnimating || currentPage <= 0) return;
+            isAnimating = true;
+
+            const currentEl = document.getElementById('page-' + currentPage);
+            currentEl.classList.add('exit-right');
+            currentEl.classList.remove('active');
+
+            currentPage--;
+
+            setTimeout(() => {
+                showPage(currentPage);
+                isAnimating = false;
+            }, 300);
+        }
+
+        function updateNavButtons() {
+            const btnBack = document.getElementById('btnBack');
+            const btnNext = document.getElementById('btnNext');
+
+            btnBack.disabled = currentPage <= 0;
+
+            // Hide next button on last page (forgive page)
+            if (currentPage >= totalPages - 1) {
+                btnNext.style.opacity = '0';
+                btnNext.style.pointerEvents = 'none';
+            } else {
+                btnNext.style.opacity = '1';
+                btnNext.style.pointerEvents = 'all';
+            }
+        }
+
+        // ===== Animate Message Lines (Page 2) =====
+        function animateMessageLines() {
+            const lines = document.querySelectorAll('#page-1 .message-line, #page-1 .message-divider');
+            lines.forEach(line => {
+                line.classList.remove('show');
+            });
+
+            lines.forEach(line => {
+                const delay = parseInt(line.dataset.msgDelay) || 0;
+                setTimeout(() => {
+                    line.classList.add('show');
+                }, delay);
+            });
+        }
+
+        // ===== Swipe Support for Touch =====
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            if (!isOpened) return;
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const diffX = touchStartX - touchEndX;
+            const diffY = Math.abs(touchStartY - touchEndY);
+            const minSwipe = 60;
+
+            // Only horizontal swipes (not vertical)
+            if (Math.abs(diffX) > minSwipe && diffY < 100) {
+                if (diffX > 0) {
+                    nextPage(); // swipe left = next
+                } else {
+                    prevPage(); // swipe right = back
+                }
+            }
+        }
+
+        // ===== Tracking Config =====
+        // ใส่ URL จาก npoint.io ที่นี่ (เช่น https://api.npoint.io/xxxxxxxxxxxx)
+        const API_URL = 'https://api.npoint.io/d0f63af663fdfd8a3a46';
+
+        // Queue เพื่อไม่ให้ request ชนกัน
+        let trackQueue = Promise.resolve();
+
+        function trackEvent(event, detail) {
+            if (!API_URL) return;
+            trackQueue = trackQueue.then(async () => {
+                try {
+                    const res = await fetch(API_URL);
+                    const data = await res.json();
+                    if (!data.events) data.events = [];
+                    data.events.push({
+                        timestamp: new Date().toISOString(),
+                        event: event,
+                        detail: detail
+                    });
+                    await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                } catch (e) { }
+            }).catch(() => { });
+        }
+
+        // ===== Runaway Button =====
+        let runAwayCount = 0;
+        let totalNotForgiveClicks = 0;
+
+        const runAwayTexts = [
+            // Phase 1: ตกใจ (1-5)
+            'ไม่ให้อภัยจริงหรออ 🥺',
+            'อย่าเลยย กดให้อภัยเถอะ 😢',
+            'เค้าขอโทษจริงๆ นะ 😭',
+            'คิดใหม่ได้นะบี๋~ 💕',
+            'เค้าขอโทษคืนดีกันนะ 🙏',
+            // Phase 2: ง้อ (6-10)
+            'อย่ากดตรงนี้เลยย 😿',
+            'ปุ่มนี้กดไม่ได้น้า~ 🏃‍♂️',
+            'กดให้อภัยดีกว่านะ 🥹💗',
+            'เค้าเสียใจจริงๆ อ่ะ 😞',
+            'ให้โอกาสเค้าสิ~ 🌷',
+            // Phase 3: น่ารัก (11-15)
+            'หนีไปเรื่อยนะจ๊ะ~ 🐰',
+            'จับไม่ได้หรอก~ 😜💨',
+            'ยอมให้อภัยเถอะนะ 🌸',
+            'เค้ารักบี๋น้า~ 💖',
+            'ถ้าให้อภัย จะรักมากขึ้น 🥰',
+            // Phase 4: พยายามต่อ (16-20)
+            'บี๋ใจร้ายยจัง 🥲',
+            'ทำไมกดตรงนี้อีกล่ะ 😤💕',
+            'เค้าจะไม่ยอมแพ้!! 💪🩷',
+            'ปุ่มนี้มันดื้อเหมือนเค้า 🐱',
+            'กดกี่ทีก็ไม่ได้ผลน้า~ ✨',
+            // Phase 5: เริ่มหมดแรง (21-25)
+            'เค้าเหนื่อยแล้ววว 🥱💗',
+            'ขอร้องล่ะ ให้อภัยเถอะ 🙇',
+            'หรือบี๋อยากให้ง้อมากกว่านี้ 👉👈',
+            'เค้าง้อหมดตัวแล้วนะ 😭💕',
+            'ถ้าให้อภัย จะทำทุกอย่างเลย 🌟',
+            // Phase 6: ดราม่า (26-30)
+            'บี๋ไม่รักเค้าแล้วหรอ 🥺💔',
+            'เค้าจะนั่งรอจนกว่าจะให้อภัย 🪑',
+            'วันนี้ฟ้าก็ไม่สวย เพราะบี๋โกรธ ☁️',
+            'ไม่มีบี๋ ดอกไม้ก็เหี่ยว 🥀',
+            'โลกมันว่างเปล่าถ้าบี๋ไม่อภัย 🌍💧',
+            // Phase 7: ตลก (31-35)
+            'โอเค เค้ากดเอง ให้อภัย! ...เฮ้ย ไม่ได้ 😂',
+            'ปุ่มนี้จะวิ่งมาราธอน 🏃‍♂️💨',
+            'GPS ก็ตามไม่ทัน 📡',
+            'ปุ่มนี้เร็วกว่าแสง ⚡',
+            'เค้าจ้างปุ่มนี้ให้หนีมาอ่ะ 💸',
+            // Phase 8: สุดท้าย (36-40)
+            'กดมาตั้ง...เยอะแล้วนะ �',
+            'บี๋ทนกดขนาดนี้ แสดงว่ายังแคร์ 🥹',
+            'ถ้าไม่แคร์คงปิดไปแล้ว ใช่ป่ะ? 💗',
+            'เค้ารู้ว่าบี๋ยังรักเค้าอยู่~ 💕',
+            'เอาล่ะ...ปุ่มจะหายแล้วจ้า �👻',
+        ];
+
+        const runAwayFloatTexts = [
+            '💕 อย่าเลยจ้า~',
+            '🥺 เค้าเสียใจนะ',
+            '😢 ให้อภัยเถอะ',
+            '💗 รักบี๋นะ',
+            '🏃 หนีก่อนน้า~',
+            '✨ กดอีกปุ่มเถอะ~',
+            '🌸 คืนดีกันเถอะ',
+            '💖 ขอโอกาสนะ',
+            '😭 ร้องไห้แล้วนะ',
+            '🐰 จับไม่ได้~',
+            '💨 วิ่งเร็วมาก!',
+            '🩷 ให้อภัยสิ~',
+            '🙏 ขอร้องง~',
+            '🌷 เค้าจะดีขึ้น',
+        ];
+
+        function runAway() {
+            const btn = document.getElementById('btnNotForgive');
+
+            // Track clicks silently via API
+            totalNotForgiveClicks++;
+            const clickText = runAwayTexts[Math.min(runAwayCount, runAwayTexts.length - 1)];
+            trackEvent('not_forgive', clickText);
+
+            // First click: make it fixed so it can fly around
+            if (!btn.classList.contains('running')) {
+                const rect = btn.getBoundingClientRect();
+                btn.style.left = rect.left + 'px';
+                btn.style.top = rect.top + 'px';
+                btn.classList.add('running');
+            }
+
+            // Show floating message
+            showFloatMessage(parseInt(btn.style.left), parseInt(btn.style.top));
+
+            // Shake
+            btn.classList.remove('shake');
+            void btn.offsetWidth;
+            btn.classList.add('shake');
+
+            // Change text — cycle through, then repeat last phase
+            const textIndex = Math.min(runAwayCount, runAwayTexts.length - 1);
+            btn.textContent = runAwayTexts[textIndex];
+            runAwayCount++;
+
+            // Move to random position (keep within viewport)
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+            const maxX = window.innerWidth - btnWidth - 15;
+            const maxY = window.innerHeight - btnHeight - 90;
+            const newX = Math.max(10, Math.random() * maxX);
+            const newY = Math.max(10, Math.random() * maxY);
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+
+            // Shrink gradually (slower since there are more texts)
+            const shrinkFactor = Math.max(0.5, 1 - (runAwayCount * 0.012));
+            btn.style.transform = `scale(${shrinkFactor})`;
+            btn.style.opacity = Math.max(0.3, 1 - (runAwayCount * 0.015));
+
+            // After all texts, disappear
+            if (runAwayCount >= runAwayTexts.length) {
+                setTimeout(() => {
+                    btn.style.opacity = '0';
+                    btn.style.transform = 'scale(0)';
+                    setTimeout(() => {
+                        btn.style.display = 'none';
+                        showFinalRunawayMessage();
+                    }, 500);
+                }, 800);
+            }
+        }
+
+        function showFloatMessage(x, y) {
+            const msg = document.createElement('div');
+            msg.classList.add('runaway-message');
+            msg.textContent = runAwayFloatTexts[Math.floor(Math.random() * runAwayFloatTexts.length)];
+            msg.style.left = (x + Math.random() * 40 - 20) + 'px';
+            msg.style.top = (y - 10) + 'px';
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 2000);
+        }
+
+        function showFinalRunawayMessage() {
+            const msg = document.createElement('div');
+            msg.style.position = 'fixed';
+            msg.style.top = '40%';
+            msg.style.left = '50%';
+            msg.style.transform = 'translate(-50%, -50%)';
+            msg.style.fontFamily = "'Mitr', sans-serif";
+            msg.style.fontSize = 'clamp(1rem, 3.5vw, 1.4rem)';
+            msg.style.color = 'rgba(255, 180, 200, 0.8)';
+            msg.style.textAlign = 'center';
+            msg.style.zIndex = '1000';
+            msg.style.opacity = '0';
+            msg.style.transition = 'opacity 1s ease';
+            msg.style.pointerEvents = 'none';
+            msg.style.width = '80%';
+            msg.innerHTML = 'ปุ่มไม่ให้อภัยหายไปแล้ว~ 👻<br><span style="font-size: 0.85em; opacity: 0.6;">เหลือแต่ปุ่มให้อภัยนะจ๊ะ 💖</span>';
+            document.body.appendChild(msg);
+            setTimeout(() => { msg.style.opacity = '1'; }, 100);
+            setTimeout(() => {
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 1000);
+            }, 3500);
+        }
+
+        // ===== Celebration =====
+        function celebrate() {
+            const celebration = document.getElementById('celebration');
+            document.getElementById('navBar').classList.remove('show');
+            celebration.classList.add('active');
+
+            // Save data silently
+            trackEvent('forgiven', 'ให้อภัยแล้ว (กดไม่ให้อภัยไป ' + totalNotForgiveClicks + ' ครั้ง)');
+
+            // Hide runaway button if still visible
+            const btnNot = document.getElementById('btnNotForgive');
+            if (btnNot) btnNot.style.display = 'none';
+
+            // Create confetti
+            const colors = ['#ff6b9d', '#ff9a9e', '#fecfef', '#ffecd2', '#ffb6c1', '#ff69b4', '#fff0f5'];
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = (5 + Math.random() * 10) + 'px';
+                confetti.style.height = (5 + Math.random() * 10) + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                celebration.appendChild(confetti);
+            }
+
+            // Hearts burst
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.bottom = '0';
+                    heart.style.fontSize = (18 + Math.random() * 35) + 'px';
+                    heart.style.zIndex = '250';
+                    heart.style.pointerEvents = 'none';
+                    heart.textContent = ['💕', '💖', '💗', '💝', '🩷'][Math.floor(Math.random() * 5)];
+                    heart.style.animation = 'floatUp 4s ease-out forwards';
+                    document.body.appendChild(heart);
+                }, i * 200);
+            }
+        }
+
+        // ===== Go Back to Read =====
+        function goBackToRead() {
+            const celebration = document.getElementById('celebration');
+            celebration.classList.remove('active');
+
+            // Remove confetti
+            celebration.querySelectorAll('.confetti').forEach(c => c.remove());
+
+            // Go to first page
+            currentPage = 0;
+            showPage(0);
+
+            // Show nav bar
+            document.getElementById('navBar').classList.add('show');
+        }
+
+        // ===== Touch cursor trail =====
+        document.addEventListener('touchmove', (e) => {
+            if (!isOpened) return;
+            if (Math.random() > 0.9) {
+                const touch = e.touches[0];
+                const trail = document.createElement('div');
+                trail.textContent = ['✨', '💕', '🩷'][Math.floor(Math.random() * 3)];
+                trail.style.position = 'fixed';
+                trail.style.left = touch.clientX + 'px';
+                trail.style.top = touch.clientY + 'px';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '99';
+                trail.style.fontSize = '12px';
+                trail.style.transition = 'all 1s ease';
+                trail.style.opacity = '1';
+                document.body.appendChild(trail);
+                setTimeout(() => {
+                    trail.style.opacity = '0';
+                    trail.style.transform = 'translateY(-25px) scale(0)';
+                }, 50);
+                setTimeout(() => trail.remove(), 1100);
+            }
+        }, { passive: true });
+
+        // Mouse cursor trail (desktop)
+        document.addEventListener('mousemove', (e) => {
+            if (!isOpened) return;
+            if (Math.random() > 0.88) {
+                const trail = document.createElement('div');
+                trail.textContent = ['✨', '💕', '🩷'][Math.floor(Math.random() * 3)];
+                trail.style.position = 'fixed';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '99';
+                trail.style.fontSize = '13px';
+                trail.style.transition = 'all 1s ease';
+                trail.style.opacity = '1';
+                document.body.appendChild(trail);
+                setTimeout(() => {
+                    trail.style.opacity = '0';
+                    trail.style.transform = 'translateY(-25px) scale(0)';
+                }, 50);
+                setTimeout(() => trail.remove(), 1100);
+            }
+        });
+    </script>
+</body>
+
+</html>
