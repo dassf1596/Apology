@@ -1346,51 +1346,25 @@
         }
 
         // ===== Tracking Config =====
-        // ใส่ URL จาก npoint.io ที่นี่ (เช่น https://api.npoint.io/xxxxxxxxxxxx)
-        const API_URL = 'https://api.npoint.io/fd4a9fa44d5a37a00397';
-
-        // Queue เพื่อไม่ให้ request ชนกัน
-        let trackQueue = Promise.resolve();
+        // ใส่ URL ที่ได้จาก Google Apps Script ที่นี่
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyTpwfhaK1WII_iUdYVn20I3WkBc7ghUgAsKk6nBtjjPZEAlKImWtnH6-QJyMyh8R40HA/exec';
 
         function trackEvent(event, detail) {
-            console.log('Tracking attempt:', event, detail);
             if (!API_URL) return;
+            console.log('Tracking attempt:', event, detail);
+            try {
+                // ใช้เทคนิค Image Beacon (ส่งแบบ GET) เพื่อเลี่ยงปัญหา 401 และ CORS
+                const img = new Image();
+                img.src = API_URL
+                    + '?event=' + encodeURIComponent(event)
+                    + '&detail=' + encodeURIComponent(detail)
+                    + '&t=' + Date.now();
 
-            trackQueue = trackQueue.then(async () => {
-                try {
-                    // ดึงข้อมูลล่าสุดโดยไม่ใช้ Cache (สำคัญมากสำหรับ GitHub/Cloudflare)
-                    const res = await fetch(API_URL, {
-                        cache: 'no-store',
-                        headers: { 'Cache-Control': 'no-cache' }
-                    });
-
-                    if (!res.ok) throw new Error('Fetch status: ' + res.status);
-                    const data = await res.json();
-
-                    if (!data.events) data.events = [];
-                    data.events.push({
-                        timestamp: new Date().toISOString(),
-                        event: event,
-                        detail: detail
-                    });
-
-                    // ส่งข้อมูลกลับไปบันทึก
-                    const saveRes = await fetch(API_URL, {
-                        method: 'POST',
-                        mode: 'cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (saveRes.ok) {
-                        console.log('Track successfully saved to npoint!');
-                    } else {
-                        throw new Error('Save status: ' + saveRes.status);
-                    }
-                } catch (e) {
-                    console.error('Tracking Error:', e);
-                }
-            }).catch(() => { });
+                img.onload = () => console.log('Track successfully sent to Google Sheets!');
+                img.onerror = () => console.error('Track failed to send.');
+            } catch (e) {
+                console.error('Tracking Error:', e);
+            }
         }
 
         // ===== Runaway Button =====
