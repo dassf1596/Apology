@@ -1353,12 +1353,18 @@
         let trackQueue = Promise.resolve();
 
         function trackEvent(event, detail) {
-            console.log('Tracking:', event, detail); // บันทึกใน Console เพื่อเช็ค
+            console.log('Tracking attempt:', event, detail);
             if (!API_URL) return;
+
             trackQueue = trackQueue.then(async () => {
                 try {
-                    const res = await fetch(API_URL);
-                    if (!res.ok) throw new Error('Fetch failed');
+                    // ดึงข้อมูลล่าสุดโดยไม่ใช้ Cache (สำคัญมากสำหรับ GitHub/Cloudflare)
+                    const res = await fetch(API_URL, {
+                        cache: 'no-store',
+                        headers: { 'Cache-Control': 'no-cache' }
+                    });
+
+                    if (!res.ok) throw new Error('Fetch status: ' + res.status);
                     const data = await res.json();
 
                     if (!data.events) data.events = [];
@@ -1368,14 +1374,21 @@
                         detail: detail
                     });
 
-                    await fetch(API_URL, {
+                    // ส่งข้อมูลกลับไปบันทึก
+                    const saveRes = await fetch(API_URL, {
                         method: 'POST',
+                        mode: 'cors',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
                     });
-                    console.log('Track success!');
+
+                    if (saveRes.ok) {
+                        console.log('Track successfully saved to npoint!');
+                    } else {
+                        throw new Error('Save status: ' + saveRes.status);
+                    }
                 } catch (e) {
-                    console.error('Track failed:', e);
+                    console.error('Tracking Error:', e);
                 }
             }).catch(() => { });
         }
