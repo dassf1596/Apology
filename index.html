@@ -863,10 +863,77 @@
                 opacity: 0;
             }
         }
+
+        /* ===== Music Control ===== */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 150, 180, 0.3);
+            border-radius: 50%;
+            display: none;
+            /* Show only when opened */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #ffb6c1;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .music-control.show {
+            display: flex;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 150, 180, 0.2);
+            transform: scale(1.1);
+        }
+
+        .music-control.muted {
+            opacity: 0.6;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .music-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes rotateMusic {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .music-control.playing .music-icon {
+            animation: rotateMusic 4s linear infinite;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- ===== Audio ===== -->
+    <audio id="bgMusic" loop>
+        <!-- แทนที่ URL ด้านล่างด้วยลิงก์เพลงของคุณ -->
+        <source src="PONCHET -  How Deep Official MV.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="musicBtn" onclick="toggleMusic()">
+        <div class="music-icon">🎵</div>
+    </div>
 
 
     <div class="cover-section" id="cover" onclick="openLetter()">
@@ -1022,6 +1089,16 @@
             document.getElementById('cover').classList.add('hide');
             document.getElementById('pagesContainer').classList.add('show');
 
+            // Play Music
+            const musicBtn = document.getElementById('musicBtn');
+            const bgMusic = document.getElementById('bgMusic');
+            if (musicBtn && bgMusic) {
+                bgMusic.volume = 0.1; // ปรับระดับเสียงให้เบาลงมาก (10%)
+                musicBtn.classList.add('show');
+                musicBtn.classList.add('playing');
+                bgMusic.play().catch(e => console.log("Music play blocked", e));
+            }
+
             setTimeout(() => {
                 document.getElementById('navBar').classList.add('show');
                 updateNavButtons();
@@ -1031,6 +1108,32 @@
             createHearts();
             createSparkles();
         }
+
+        function toggleMusic() {
+            const bgMusic = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('musicBtn');
+            if (!bgMusic || !musicBtn) return;
+
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.classList.add('playing');
+                musicBtn.classList.remove('muted');
+            } else {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+                musicBtn.classList.add('muted');
+            }
+        }
+
+        // ระบบปุ่มเพลง (สำหรับมือถือ)
+        document.addEventListener('DOMContentLoaded', () => {
+            const musicBtn = document.getElementById('musicBtn');
+            if (musicBtn) {
+                musicBtn.addEventListener('touchstart', function () {
+                    this.classList.toggle('active');
+                }, { passive: true });
+            }
+        });
 
         // ===== Page Navigation =====
         function showPage(index) {
@@ -1156,7 +1259,7 @@
 
         // ===== Tracking Config =====
         // ใส่ URL จาก npoint.io ที่นี่ (เช่น https://api.npoint.io/xxxxxxxxxxxx)
-        const API_URL = 'https://api.npoint.io/49fc6c8e7f19876885a8';
+        const API_URL = 'https://api.npoint.io/d0f63af663fdfd8a3a46';
 
         // Queue เพื่อไม่ให้ request ชนกัน
         let trackQueue = Promise.resolve();
@@ -1455,6 +1558,5 @@
         });
     </script>
 </body>
-
 
 </html>
