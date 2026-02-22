@@ -675,10 +675,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(15px, 4vw, 25px);
-            padding: clamp(15px, 3vw, 25px) 20px;
+            gap: 20px;
+            padding: 30px 20px;
             z-index: 50;
-            background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 26, 0.9) 40%);
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
@@ -690,53 +689,8 @@
         }
 
         .nav-btn {
-            padding: clamp(10px, 2.5vw, 14px) clamp(24px, 5vw, 40px);
-            border-radius: 50px;
-            font-family: 'Prompt', sans-serif;
-            font-size: clamp(0.85rem, 2.5vw, 1rem);
-            font-weight: 300;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-            border: none;
-            outline: none;
-        }
-
-        .nav-btn-back {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 150, 180, 0.2) !important;
-            color: rgba(255, 180, 200, 0.6);
-        }
-
-        .nav-btn-back:hover {
-            background: rgba(255, 150, 180, 0.1);
-            color: rgba(255, 180, 200, 0.9);
-        }
-
-        .nav-btn-back:active {
-            transform: scale(0.95);
-        }
-
-        .nav-btn-next {
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.3), rgba(255, 154, 158, 0.3));
-            color: #ffb6c1;
-            border: 1px solid rgba(255, 150, 180, 0.3) !important;
-        }
-
-        .nav-btn-next:hover {
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.5), rgba(255, 154, 158, 0.5));
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 100, 150, 0.2);
-        }
-
-        .nav-btn-next:active {
-            transform: scale(0.95);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: default;
-            pointer-events: none;
+            display: none !important;
+            /* เอาปุ่มออกตามคำขอ */
         }
 
         /* Page dots */
@@ -920,6 +874,91 @@
         .music-control.playing .music-icon {
             animation: rotateMusic 4s linear infinite;
         }
+
+        /* Instruction Page Styles */
+        .instruction-container {
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .instruction-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.5));
+        }
+
+        .instruction-text {
+            font-family: 'Mitr', sans-serif;
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            color: #ffb6c1;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .instruction-arrow {
+            font-size: 2rem;
+            margin-top: 25px;
+            color: rgba(255, 182, 193, 0.4);
+            animation: slideRight 1.5s infinite ease-in-out;
+        }
+
+        @keyframes slideRight {
+            0% {
+                transform: translateX(-10px);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(10px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        .swipe-hint {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            font-weight: 200;
+            z-index: 200;
+            pointer-events: none;
+            display: none;
+            animation: fadeInOut 3s ease forwards;
+            white-space: nowrap;
+        }
+
+        .swipe-hint.active {
+            display: block;
+        }
     </style>
 </head>
 
@@ -940,23 +979,27 @@
         <div class="cover-glow"></div>
         <div class="cover-heart">💌</div>
         <h1 class="cover-title">มีอะไรอยากจะบอก...</h1>
-        <p class="cover-subtitle">แตะเพื่อเปิดอ่าน 💕</p>
+        <p class="cover-subtitle">แตะเพื่อเปิดอ่าน และ ปัดเพื่อเลื่อนดู 💕</p>
     </div>
-
 
     <div class="hearts-bg" id="heartsBg"></div>
 
-
     <div class="pages-container" id="pagesContainer">
+        <!-- Page 0: Navigation Instructions -->
+        <div class="page page-instruction active" id="page-0">
+            <div class="instruction-container">
+                <div class="instruction-icon">📱</div>
+                <p class="instruction-text" id="instructionText">กำลังโหลดคำแนะนำ...</p>
+                <div class="instruction-arrow">➡</div>
+            </div>
+        </div>
 
-
-        <div class="page page-1" id="page-0">
+        <div class="page page-1" id="page-1">
             <div class="sorry-emoji">🙏</div>
             <h2 class="sorry-text">ขอโทษนะ...บี๋</h2>
         </div>
 
-
-        <div class="page page-2" id="page-1">
+        <div class="page page-2" id="page-2">
             <div class="message-card">
                 <div class="message-card-content">
                     <p class="message-line" data-msg-delay="200">
@@ -981,7 +1024,7 @@
         </div>
 
         <!-- Page 3: Important -->
-        <div class="page page-3" id="page-2">
+        <div class="page page-3" id="page-3">
             <div class="glow-ring glow-ring-1"></div>
             <div class="glow-ring glow-ring-2"></div>
             <div class="glow-ring glow-ring-3"></div>
@@ -995,7 +1038,7 @@
         </div>
 
         <!-- Page 4: Promise -->
-        <div class="page page-4" id="page-3">
+        <div class="page page-4" id="page-4">
             <div class="promise-container">
                 <div class="promise-icon">🌸</div>
                 <h2 class="promise-title">เค้าสัญญา</h2>
@@ -1009,7 +1052,7 @@
         </div>
 
         <!-- Page 5: Forgive -->
-        <div class="page page-5" id="page-4">
+        <div class="page page-5" id="page-5">
             <div class="forgive-container">
                 <p class="forgive-question">ให้อภัยเค้าได้ไหม? 🥺💕</p>
                 <div class="buttons-wrapper">
@@ -1033,6 +1076,7 @@
             <div class="page-dot" data-dot="2"></div>
             <div class="page-dot" data-dot="3"></div>
             <div class="page-dot" data-dot="4"></div>
+            <div class="page-dot" data-dot="5"></div>
         </div>
         <button class="nav-btn nav-btn-next" id="btnNext" onclick="nextPage()">ถัดไป →</button>
     </div>
@@ -1048,7 +1092,7 @@
     <script>
         // ===== State =====
         let currentPage = 0;
-        const totalPages = 5;
+        const totalPages = 6;
         let isOpened = false;
         let isAnimating = false;
 
@@ -1101,6 +1145,7 @@
 
             setTimeout(() => {
                 document.getElementById('navBar').classList.add('show');
+                setInstruction(); // ตั้งค่าคำแนะนำตามอุปกรณ์
                 updateNavButtons();
                 showPage(0);
             }, 800);
@@ -1108,6 +1153,46 @@
             createHearts();
             createSparkles();
         }
+
+        function setInstruction() {
+            const instrText = document.getElementById('instructionText');
+            const instrIcon = document.querySelector('.instruction-icon');
+
+            // ตรวจสอบว่าเป็นอุปกรณ์พกพาหรือไม่
+            const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            const isApple = /iPhone|iPad|iPod/.test(navigator.userAgent);
+
+            if (isTouch) {
+                instrIcon.textContent = isApple ? '📱' : '📱';
+                instrText.innerHTML = 'ปัดซ้ายหรือขวา<br><span style="font-size:0.8em; opacity:0.7;">เพื่อเลื่อนหน้าต่อไปนะคั้บ</span>';
+            } else {
+                instrIcon.textContent = '🖱️';
+                instrText.innerHTML = 'ใช้ลูกกลิ้งเมาส์ หรือ ปุ่มลูกศร<br><span style="font-size:0.8em; opacity:0.7;">เพื่อเลื่อนหน้าต่อไปนะคั้บ</span>';
+            }
+        }
+
+        // คุมผ่านคีย์บอร์ด
+        document.addEventListener('keydown', (e) => {
+            if (!isOpened) return;
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+
+        // คุมผ่าน Scroll เมาส์
+        let lastWheelTime = 0;
+        document.addEventListener('wheel', (e) => {
+            if (!isOpened) return;
+            const now = Date.now();
+            if (now - lastWheelTime < 1000) return; // กันเลื่อนเร็วเกินไป
+
+            if (e.deltaY > 0 || e.deltaX > 0) {
+                nextPage();
+                lastWheelTime = now;
+            } else if (e.deltaY < 0 || e.deltaX < 0) {
+                prevPage();
+                lastWheelTime = now;
+            }
+        }, { passive: true });
 
         function toggleMusic() {
             const bgMusic = document.getElementById('bgMusic');
@@ -1153,8 +1238,8 @@
                 dot.classList.toggle('active', i === index);
             });
 
-            // Trigger message card animations on page 2
-            if (index === 1) {
+            // Trigger message card animations on page 2 (Message Card)
+            if (index === 2) {
                 animateMessageLines();
             }
 
@@ -1211,7 +1296,7 @@
 
         // ===== Animate Message Lines (Page 2) =====
         function animateMessageLines() {
-            const lines = document.querySelectorAll('#page-1 .message-line, #page-1 .message-divider');
+            const lines = document.querySelectorAll('#page-2 .message-line, #page-2 .message-divider');
             lines.forEach(line => {
                 line.classList.remove('show');
             });
