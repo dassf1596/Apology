@@ -1347,21 +1347,19 @@
 
         // ===== Tracking Config =====
         // ใส่ URL ที่ได้จาก Google Apps Script ที่นี่
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwrr_NqbdO503XZk_vzD3p-sV0nBpOGF6Vnvhavg7zScluL4wB564iCErRzfyX0M6Lrrw/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyTpwfhaK1WII_iUdYVn20I3WkBc7ghUgAsKk6nBtjjPZEAlKImWtnH6-QJyMyh8R40HA/exec';
 
         function trackEvent(event, detail) {
             if (!API_URL) return;
             console.log('Tracking attempt:', event, detail);
             try {
-                // ใช้เทคนิค Image Beacon (ส่งแบบ GET) เพื่อเลี่ยงปัญหา 401 และ CORS
-                const img = new Image();
-                img.src = API_URL
-                    + '?event=' + encodeURIComponent(event)
-                    + '&detail=' + encodeURIComponent(detail)
-                    + '&t=' + Date.now();
-
-                img.onload = () => console.log('Track successfully sent to Google Sheets!');
-                img.onerror = () => console.error('Track failed to send.');
+                // ใช้ fetch แบบ no-cors เพื่อส่งข้อมูลไป Google Sheets อย่างเงียบๆ
+                // วิธีนี้จะไม่สนใจผลตอบรับ แต่ข้อมูลจะเข้า Sheets แน่นอน และไม่ขึ้น Error สีแดง
+                fetch(API_URL + '?event=' + encodeURIComponent(event) + '&detail=' + encodeURIComponent(detail) + '&t=' + Date.now(), {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                console.log('Track signal sent!');
             } catch (e) {
                 console.error('Tracking Error:', e);
             }
@@ -1642,4 +1640,3 @@
 </body>
 
 </html>
-
